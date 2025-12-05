@@ -1,4 +1,6 @@
 mod day1;
+mod day2;
+mod day3;
 mod utils;
 
 use clap::Parser;
@@ -18,6 +20,8 @@ fn main() {
 
     match args.day {
         1 => day1::run(args.second),
+        2 => day2::run(args.second),
+        3 => day3::run(args.second),
         _ => println!("[ERROR] day not found."),
     }
 }

@@ -1,4 +1,4 @@
-use std::{fmt::Display, str::FromStr};
+use std::str::FromStr;
 
 use crate::utils::read_file_as_lines;
 
@@ -9,16 +9,6 @@ use crate::utils::read_file_as_lines;
 enum Command {
     L,
     R,
-}
-
-impl ToString for Command {
-    fn to_string(&self) -> String {
-        match self {
-            Command::L => "L",
-            Command::R => "R",
-        }
-        .to_string()
-    }
 }
 
 impl From<char> for Command {
@@ -62,49 +52,43 @@ pub fn run(second: bool) {
         .collect::<Result<Vec<_>, _>>()
         .expect("invalid line command");
 
-    let mut dial = 50i32;
+    let mut dial = 50u32;
     let mut counter = 0;
     let mut passes = 0;
     for rotation in all_rotations {
+        //println!("NEXT COMMAND: {:?}", &rotation);
+
         let rotation_value = match rotation.command {
             Command::L => rotation.value * -1,
             Command::R => rotation.value,
         };
 
-        // where to move dial.
-        let delta = rotation_value % 100;
+        let mut new_dial = dial as i32 + rotation_value;
+        println!("{dial} {new_dial} {rotation_value}");
 
-        // exceeded rotations.
-        let exc = (rotation_value / 100).unsigned_abs();
-
-        // new number
-        let next = dial + delta;
-
-        if next == 0 {
-            passes += 1;
-        } else if dial != 0 && next <= 0 || next > 99 {
+        if new_dial <= 0 && dial != 0 {
             passes += 1;
         }
 
-        //dial = ((next as u32) % 100u32) as i32;
-        dial = next.rem_euclid(100);
+        if new_dial < 0 {
+            new_dial = (100 + new_dial) % 100;
+        } else if new_dial > 99 {
+            new_dial = new_dial % 100;
 
-        //dial = next;
+            if dial != 0 {
+                passes += 1;
+            }
+        }
 
-        //if dial < 0 {
-        //    dial += 100;
-        //}
+        passes += (rotation_value / 100).unsigned_abs();
 
-        //if dial > 99 {
-        //    dial -= 100;
-        //}
-
-        passes += exc;
-
-        if dial == 0 {
+        if new_dial == 0 {
             counter += 1;
         }
+
+        dial = new_dial as u32;
+        //println!("DIAL: {dial}\n");
     }
 
-    println!("PHASE1: {counter} - PHASE2: {passes}");
+    println!("RESPONSE: {counter} - {passes}");
 }
