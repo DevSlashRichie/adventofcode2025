@@ -1,5 +1,3 @@
-use std::{cmp::Reverse, collections::BinaryHeap};
-
 use crate::utils::read_file_as_lines;
 
 fn explore_line(line: String) -> u32 {
@@ -38,37 +36,17 @@ fn explore_line_v2(line: String) -> u64 {
         .map(|f| u32::from_str_radix(&f.to_string(), 10).unwrap())
         .collect::<Vec<_>>();
 
-    let mut l = 0;
-    let mut r = 0;
-
     let mut acc = Vec::<u32>::with_capacity(12);
 
-    while l <= r && r < line.len() {
-        let acs = acc
-            .iter()
-            .copied()
-            .map(|f| f.to_string())
-            .collect::<String>();
-
-        //print!("{}", acs);
+    for r in 0..line.len() {
         while acc.len() > 0 && acc[acc.len() - 1] < line[r] && ((line.len() - r) > (12 - acc.len()))
         {
-            let r = acc.pop().unwrap();
-            //print!("[{r}]");
+            acc.pop();
         }
-
-        //println!();
 
         if acc.len() < 12 {
             acc.push(line[r]);
-            //println!("AP{r}: {}", line[r]);
         }
-
-        if line[r] > line[l] && r != line.len() - 1 {
-            // TODO
-        }
-
-        r += 1;
     }
 
     //println!();
