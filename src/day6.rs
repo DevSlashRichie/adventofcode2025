@@ -1,7 +1,55 @@
-use itertools::Itertools;
 use regex::Regex;
 
-use crate::utils::{read_file_as_lines, read_file_contents};
+use crate::utils::read_file_as_lines;
+
+pub fn phase2() {
+    let contents = read_file_as_lines("day6.txt");
+
+    let cols = contents[0].len();
+
+    let mut last_sim = ' ';
+    let mut total_ans: u64 = 0;
+    let mut col_acc = Vec::new();
+    for index in 0..cols {
+        let mut acc = 0;
+        let mut mult = 1;
+        for line in contents.iter().rev().filter(|f| !f.is_empty()) {
+            let line = line.chars().collect::<Vec<_>>();
+
+            if line[index] == '*' || line[index] == '+' {
+                last_sim = line[index];
+            } else {
+                if let Some(num) = line[index].to_digit(10) {
+                    acc += num as u64 * mult;
+                    mult *= 10;
+                }
+            }
+        }
+
+        if acc > 0 {
+            col_acc.push(acc);
+        } else {
+            let ans = if last_sim == '*' {
+                col_acc.iter().product::<u64>()
+            } else if last_sim == '+' {
+                col_acc.iter().sum::<u64>()
+            } else {
+                0
+            };
+            total_ans += ans;
+
+            col_acc.clear();
+        }
+    }
+
+    if last_sim == '*' {
+        total_ans += col_acc.iter().product::<u64>();
+    } else if last_sim == '+' {
+        total_ans += col_acc.iter().sum::<u64>();
+    }
+
+    println!("ANS: {total_ans}");
+}
 
 pub fn phase1() {
     let re = Regex::new(r"([0-9]+)").unwrap();
@@ -49,5 +97,7 @@ pub fn phase1() {
 pub fn run(second: bool) {
     if !second {
         phase1();
+    } else {
+        phase2();
     }
 }
