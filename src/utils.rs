@@ -20,7 +20,7 @@ use std::fmt::Display;
 pub fn print_matrix<T: Display>(matrix: &Vec<Vec<T>>) {
     for row in matrix {
         for val in row {
-            print!("{val} ");
+            print!("{val}");
         }
         println!();
     }
