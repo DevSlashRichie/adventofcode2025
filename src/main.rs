@@ -1,4 +1,5 @@
 mod day1;
+mod day10;
 mod day2;
 mod day3;
 mod day4;
@@ -6,6 +7,7 @@ mod day5;
 mod day6;
 mod day7;
 mod day8;
+mod day9;
 mod utils;
 
 use clap::Parser;
@@ -32,6 +34,8 @@ fn main() {
         6 => day6::run(args.second),
         7 => day7::run(args.second),
         8 => day8::run(args.second),
+        9 => day9::run(args.second),
+        10 => day10::run(args.second),
         _ => println!("[ERROR] day not found."),
     }
 }
