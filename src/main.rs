@@ -1,5 +1,7 @@
 mod day1;
 mod day10;
+mod day11;
+mod day12;
 mod day2;
 mod day3;
 mod day4;
@@ -36,6 +38,8 @@ fn main() {
         8 => day8::run(args.second),
         9 => day9::run(args.second),
         10 => day10::run(args.second),
+        11 => day11::run(args.second),
+        12 => day12::run(args.second),
         _ => println!("[ERROR] day not found."),
     }
 }

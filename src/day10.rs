@@ -30,6 +30,7 @@ fn generate_patterns(buttons: &[u32]) -> HashMap<Vec<u32>, u32> {
     out
 }
 
+// I was able to finish this because of some reddittor help + understading thanks to chat
 fn solve_aux(
     goal: Vec<u32>,
     patterns: &HashMap<Vec<u32>, u32>,

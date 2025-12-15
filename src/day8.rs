@@ -1,5 +1,3 @@
-use std::os::unix::fs::OpenOptionsExt;
-
 use crate::utils::read_file_contents;
 use itertools::Itertools;
 use min_heap::MinHeap;

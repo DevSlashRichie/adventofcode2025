@@ -99,6 +99,7 @@ fn phase2() {
     println!("ANS: {ans}");
 }
 
+// wondered how to implement wihtout rec (thanks to chat)
 fn phase2_norec() {
     use rustc_hash::FxHashMap;
 
@@ -166,6 +167,7 @@ fn phase2_norec() {
     println!("ANS: {ans}");
 }
 
+// I asked chat to a better solution than mine.
 fn phase2_dp_bottom_up() {
     let contents = read_file_contents("day7.txt");
 

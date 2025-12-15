@@ -111,6 +111,7 @@ pub fn create_matrix(rows: usize, cols: usize) -> Vec<Vec<char>> {
     vec![vec!['.'; cols]; rows]
 }
 
+// thanks to icub3d
 fn phase2(content: String) {
     let tiles = content
         .lines()
@@ -207,6 +208,7 @@ fn rect_is_all_I(a: Coord, b: Coord, matrix: &Vec<Vec<char>>) -> bool {
     true
 }
 
+// this was my solution but it's too slow.
 fn _phase2_discarded(content: String) {
     let original_tiles = content
         .lines()
